@@ -1,3 +1,24 @@
-body {
-    background-color: skyblue;
+header {
+    display: flex;
+    justify-content: space-around;
+}
+#users-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 5vw;
+}
+.user-card {
+    border: 1px solid black;
+    max-width: 200px;
+    text-align: center;
+    text-decoration: none;
+}
+.user-card:hover{
+    color: #ffcd59;
+    background-color: hsl(0, 0%, 15%);
+}
+#listActiveProfile{
+    margin: 0;
+    font-size: 12px;
+    text-align: right;
 }
