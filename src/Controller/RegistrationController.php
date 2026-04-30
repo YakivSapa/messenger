@@ -27,28 +27,30 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
-            // $plainPassword = $form->get('plainPassword')->getData();
+            $plainPassword = $form->get('plainPassword')->getData();
 
             // encode the plain password
-            // $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
-            // $entityManager->persist($user);
-            // $entityManager->flush();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-            // $signatureComponents = $verifyEmailHelper->generateSignature(
-            //     'app_verify_email',
-            //     $user->getId(),
-            //     $user->getEmail(),
-            //     ['id' => $user->getId()]
-            // );
+            $signatureComponents = $verifyEmailHelper->generateSignature(
+                'app_verify_email',
+                $user->getId(),
+                $user->getEmail(),
+                ['id' => $user->getId()]
+            );
             $email = (new Email())
-                ->from('no-reply@example.com')
-                ->to('test@example.com')
+                ->from('no-reply-messenger@example.com')
+                ->to($user->getEmail())
                 ->subject('Registration of a new account')
-                ->text('Please click the following link to verify your email: ');
+                ->html('<h1>Welcome to the Messenger!</h1><p>Please click the following link to verify your email:</p><p><a href="'.$signatureComponents->getSignedUrl().'">Verify Email</a></p>');
             $bodyRenderer->render($email);
             $mailer->send($email);
-            // return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_verify_email', [
+                'signature' => $signatureComponents->getSignedUrl()
+            ]);
         }
 
         return $this->render('registration/register.html.twig', [
@@ -58,6 +60,6 @@ class RegistrationController extends AbstractController
     #[Route('/verify', name: 'app_verify_email')]
     public function verify(): Response
     {
-        return $this->render('home/index.html.twig');
+        return $this->render('registration/verify_email.html.twig');
     }
 }
