@@ -3,19 +3,8 @@
 {% block title %}Email Verification{% endblock %}
 
 {% block body %}
-    {% if app.request.query.get('signature') and app.request.query.get('token') %}
         <h1>Congratulations!</h1>
         <p>You have successfully verified your email address.</p>
         <p>Please proceed to the login page to access your account.</p>
         <p><a href="{{ path('app_login') }}">Go to Login</a></p>
-    {% elseif app.request.query.get('signature') %}
-        <h1>You're almost done!</h1>
-        <p>Please finish your registration by verifying your email address.</p>
-        <p>Check your inbox for the verification email!</p>
-    {% else %}
-        <h1>Uh oh! Something went wrong.</h1>
-        <p>The verification link is either invalid or has expired.</p>
-        <p>Please try registering again to receive a new verification email.</p>
-        <p><a href="{{ path('app_register') }}">Go to Registration</a></p>
-    {% endif %}
 {% endblock %}
