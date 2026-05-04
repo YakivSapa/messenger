@@ -43,6 +43,13 @@
         {% endif %}
     </header>
         {% block error %}{% endblock %}
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% for flash in app.flashes('verify_email_success') %}
+            <div class="alert alert-success">{{ flash }}</div>
+        {% endfor %}
+        {% for flash in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger">{{ flash }}</div>
+        {% endfor %}
+        {% endblock %}
     </body>
 </html>
