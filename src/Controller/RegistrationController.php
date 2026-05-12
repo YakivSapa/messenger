@@ -50,17 +50,17 @@ class RegistrationController extends AbstractController
                     ->subject('Registration of a new account')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            return $this->redirectToRoute('app_verify');
+            return $this->redirectToRoute('app_verify_resend_email');
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
         ]);
     }
-    #[Route('/verify', name: 'app_verify')]
-    public function verify(Request $request): Response
+    #[Route('/verify/resend', name: 'app_verify_resend_email')]
+    public function resendVerifyEmail(): Response
     {
-        return $this->render('registration/verify.html.twig');
+        return $this->render('registration/resend_verify_email.html.twig');
     }
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
