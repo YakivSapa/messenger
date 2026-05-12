@@ -5,4 +5,7 @@
         <h1>You're almost done!</h1>
         <p>Please finish your registration by verifying your email address.</p>
         <p>Check your email for the verification link!</p>
+        {{ form_start(resendForm) }}
+                <button class="btn" type="submit">Resend verification email</button>
+        {{ form_end(resendForm) }}
 {% endblock %}
