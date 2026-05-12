@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\ResendFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,9 +59,26 @@ class RegistrationController extends AbstractController
         ]);
     }
     #[Route('/verify/resend', name: 'app_verify_resend_email')]
-    public function resendVerifyEmail(): Response
+    public function resendVerifyEmail(Request $request, UserRepository $userRepository): Response
     {
-        return $this->render('registration/resend_verify_email.html.twig');
+        $user = $userRepository->findOneBy(['email' => $request->query->get('email')]);
+        $form = $this->createForm(ResendFormType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
+                (new TemplatedEmail())
+                    ->from(new Address('no-reply-messenger@example.com', 'Messenger Bot'))
+                    ->to($user->getEmail())
+                    ->subject('Registration of a new account')
+                    ->htmlTemplate('registration/confirmation_email.html.twig')
+            );
+            return $this->redirectToRoute('app_verify_resend_email');
+        }
+        return $this->render('registration/resend_verify_email.html.twig', [
+            'resendForm' => $form,
+        ]);
     }
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
