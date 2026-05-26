@@ -1,6 +1,39 @@
-header {
+.active {
+    font-weight: bold;
+    color: #ffcd59;
+}
+.navbar {
     display: flex;
     justify-content: space-around;
+    list-style: none;
+    text-decoration: none;
+}
+.navbar a {
+    text-decoration: none;
+}
+.navbar a:hover {
+    color: #ffcd59;
+}
+.dropdown {
+    position: relative;
+}
+.dropdown-menu {
+    position: absolute;
+    min-width: 160px;
+    background-color: #212121;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    list-style: none;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+.dropdown.open .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 #users-list {
     display: grid;

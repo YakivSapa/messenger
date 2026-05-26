@@ -20,27 +20,38 @@
         {% endif %}
     </head>
     <body>
+    {% set current_route = app.request.attributes.get('_route') %}
     <header>
-        <a href="{{ path('app_home')}}">Messenger</a>
-        <a href="{{ path('app_users')}}">Users</a>
+    <ul class="navbar">
+        <li><a href="{{ path('app_home') }}" class="{{ current_route == 'app_home' ? 'active' : '' }}">
+            Home
+        </a></li>
+        <li><a href="{{ path('app_users') }}" class="{{ current_route == 'app_users' ? 'active' : '' }}">
+            Users
+        </a></li>
         {% if app.user %}
-        <div>
-            <div>
-                <p>Logged in as, {{ app.user.userIdentifier }}</p>
-            </div>
-            <div>
-                <a href="{{ path('app_logout') }}">Log out</a>
-                <span>/</span>
-                <a href="{{ path('app_profile', {'id': app.user.id}) }}">My Profile</a>
-            </div>
-        </div>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">My Profile ▾</a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('app_profile', {'id': app.user.id}) }}" class="{{ current_route == 'app_profile' ? 'active' : '' }}">
+                    View Profile
+                </a></li>
+                <li><a href="#" class="{{ current_route == 'app_settings' ? 'active' : '' }}">
+                    Settings
+                </a></li>
+                <li><a href="{{ path('app_logout') }}">
+                    Log out
+                </a></li>
+            </ul>
+        </li>
         {% else %}
-        <div>
+        <li>
             <a href="{{ path('app_login') }}">Login</a>
             <span>/</span>
             <a href="{{ path('app_register') }}">Registration</a>
-        </div>
+        </li>
         {% endif %}
+    </ul>
     </header>
         {% block error %}{% endblock %}
         {% block body %}
