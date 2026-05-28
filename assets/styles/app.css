@@ -2,6 +2,9 @@
     font-weight: bold;
     color: #ffcd59;
 }
+#page-title{
+    text-align: center;
+}
 .navbar {
     display: flex;
     justify-content: space-around;
@@ -54,4 +57,40 @@
     margin: 0;
     font-size: 12px;
     text-align: right;
+}
+#settings-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1vw;
+}
+#settings-content-column{
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+#settings-content-title{
+    text-align: center;
+    margin-top: 0;
+}
+#settings-title-column{
+    margin: 0 auto;
+    align-self: center;
+    width: 30%;
+    grid-column: 1;
+}
+#settings-title-column ul{
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    list-style: none;
+    border: 1px solid black;
+}
+.settings-item{
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+}
+.settings-item:hover{
+    color: #ffcd59;
+    background-color: hsl(0, 0%, 10%);
 }

@@ -36,7 +36,7 @@
                 <li><a href="{{ path('app_profile', {'id': app.user.id}) }}" class="{{ current_route == 'app_profile' ? 'active' : '' }}">
                     View Profile
                 </a></li>
-                <li><a href="#" class="{{ current_route == 'app_settings' ? 'active' : '' }}">
+                <li><a href="{{ path('app_user_settings') }}" class="{{ current_route == 'app_user_settings' ? 'active' : '' }}">
                     Settings
                 </a></li>
                 <li><a href="{{ path('app_logout') }}">
