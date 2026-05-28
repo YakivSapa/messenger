@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block body %}
+    <h1 id="page-title">Account Settings</h1>
+    {# <div id="settings-container"> #}
+        <div id="settings-title-column">
+            <ul>
+                <li><a class="settings-item" href="{{ path('app_user_settings', {'section': 'general'}) }}">General</a></li>
+                <li><a class="settings-item" href="{{ path('app_user_settings', {'section': 'password-reset'}) }}">Change Password</a></li>
+            </ul>
+        </div>
+        <main id="settings-content-column">
+            {% include 'user_settings/sections/' ~ section ~ '.html.twig' %}
+        </main>
+    {# </div> #}
+{% endblock %}
