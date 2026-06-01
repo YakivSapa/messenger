@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid\UuidV7;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -22,7 +24,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->id = $id;
         return $this;
     }
-
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private ?Uuid $uuid = null;
+    public function __construct()
+    {
+        $this->uuid ??= new UuidV7();
+    }
+    public function getUuid(): ?Uuid
+    {
+        return $this->uuid;
+    }
+    public function setUuid(Uuid $uuid): self
+    {
+        $this->uuid = $uuid;
+        return $this;
+    }
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
