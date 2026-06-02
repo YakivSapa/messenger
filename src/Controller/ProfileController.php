@@ -9,10 +9,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ProfileController extends AbstractController
 {
-    #[Route('/profile/{id<\d+>}', name: 'app_profile')]
-    public function index($id, UserRepository $repository): Response
+    #[Route('/profile/{uuid}', name: 'app_profile')]
+    public function index(string $uuid, UserRepository $repository): Response
     {
-        $profile = $repository->findOneBy(['id' => $id]);
+        $profile = $repository->findOneBy(['uuid' => $uuid]);
+        if (!$profile) {
+            throw $this->createNotFoundException();
+        }
         return $this->render('profile/index.html.twig', [
             'profile' => $profile,
         ]);
