@@ -16,7 +16,7 @@ use Symfony\Component\Uid\UuidV7;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'NONE')]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
     public function setId(int $id): self
