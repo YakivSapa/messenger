@@ -61,7 +61,8 @@ class RegistrationController extends AbstractController
     #[Route('/verify/resend', name: 'app_verify_resend_email')]
     public function resendVerifyEmail(Request $request, UserRepository $userRepository): Response
     {
-        $user = $userRepository->findOneBy(['email' => $request->query->get('email')]);
+        $email = $request->query->get('email');
+        $user = $userRepository->findByEmail($email);
         $form = $this->createForm(ResendFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -70,11 +71,11 @@ class RegistrationController extends AbstractController
                 $user,
                 (new TemplatedEmail())
                     ->from(new Address('no-reply-messenger@example.com', 'Messenger Bot'))
-                    ->to($user->getEmail())
+                    ->to($email)
                     ->subject('Registration of a new account')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            return $this->redirectToRoute('app_verify_resend_email');
+            return $this->redirectToRoute('app_verify_resend_email', ['email' => $user->getEmail()]);
         }
         return $this->render('registration/resend_verify_email.html.twig', [
             'resendForm' => $form,
