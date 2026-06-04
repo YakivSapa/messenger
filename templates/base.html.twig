@@ -33,7 +33,7 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle">My Profile ▾</a>
             <ul class="dropdown-menu">
-                <li><a href="{{ path('app_profile', {'id': app.user.id}) }}" class="{{ current_route == 'app_profile' ? 'active' : '' }}">
+                <li><a href="{{ path('app_profile', {'uuid': app.user.uuid}) }}" class="{{ current_route == 'app_profile' ? 'active' : '' }}">
                     View Profile
                 </a></li>
                 <li><a href="{{ path('app_user_settings') }}" class="{{ current_route == 'app_user_settings' ? 'active' : '' }}">
