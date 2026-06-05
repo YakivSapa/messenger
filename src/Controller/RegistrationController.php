@@ -16,6 +16,7 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Form\FormError;
 
 
 class RegistrationController extends AbstractController
@@ -25,7 +26,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -38,6 +39,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $username = strtolower(trim($form->get('username')->getData()));
+            if ($userRepository->findOneBy(['username' => $username])) {
+                $form->get('username')->addError(
+                    new FormError('Username is already taken.')
+                );
+            }
+            $user->setUsername($username);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -51,7 +59,7 @@ class RegistrationController extends AbstractController
                     ->subject('Registration of a new account')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            return $this->redirectToRoute('app_verify_resend_email');
+            return $this->redirectToRoute('app_verify_resend_email', ['email' => $user->getEmail()]);
         }
 
         return $this->render('registration/register.html.twig', [
