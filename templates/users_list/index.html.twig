@@ -10,7 +10,7 @@
                 {% if (app.user.id|default(null)) is same as (user.id) %}
                     <p id="listActiveProfile">That's you!</p>
                 {% endif %}
-                <p>{{ user.email }}</p>
+                <p>{{ user.username }}</p>
             </a>
         {% endfor %}
     </div>
