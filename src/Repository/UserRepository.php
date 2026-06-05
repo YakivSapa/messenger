@@ -8,11 +8,12 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface, UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -60,5 +61,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         public function findByEmail(string $email): ?User
     {
         return $this->findOneBy(['email' => $email]);
+    }
+    public function findByEmailorUsername(string $identifier): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.email = :identifier OR u.username = :identifier')
+            ->setParameter('identifier', strtolower($identifier))
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    public function loadUserByIdentifier(string $identifier): ?User
+    {
+        $identifier = strtolower(trim($identifier));
+        return $this->createQueryBuilder('u')
+            ->where('LOWER(u.email) = :identifier')
+            ->orWhere('LOWER(u.username) = :identifier')
+            ->setParameter('identifier', $identifier)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }
