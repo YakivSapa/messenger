@@ -73,6 +73,20 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ]
             ])
+            ->add('displayName', null, [
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a display name.'
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Your display name should be at least {{ limit }} characters',
+                        'max' => 32,
+                        'maxMessage' => 'Your display name should not be longer than {{ limit }} characters',
+                    ]),
+                ]
+            ])
         ;
     }
 
