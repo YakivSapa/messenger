@@ -94,3 +94,13 @@
     color: #ffcd59;
     background-color: hsl(0, 0%, 10%);
 }
+#user-display-name{
+    margin-bottom: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+#user-username{
+    margin: 0;
+    font-size: 1rem;
+    color: #888;
+}

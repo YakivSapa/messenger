@@ -4,7 +4,7 @@
 
 {% block body %}
 {% if app.user %}
-    <h1 id="page-title">Welcome back, {{ app.user.username }}!</h1>
+    <h1 id="page-title">Welcome back, {{ app.user.displayName }}!</h1>
 {% else %}
     <h1 id="page-title">Welcome to the messenger!</h1>
     <p>Feel free to browse our <a href="{{ path('app_users')}}">users list</a> without the need to register an account!</p>
