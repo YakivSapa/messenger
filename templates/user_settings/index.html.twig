@@ -14,5 +14,17 @@
         <main id="settings-content-column">
             {% include 'user_settings/sections/' ~ section ~ '.html.twig' %}
         </main>
+        <div id="settings-flash-messages">
+            {% for message in app.flashes('success') %}
+                <div class="flash-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="flash-error">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
     {# </div> #}
 {% endblock %}

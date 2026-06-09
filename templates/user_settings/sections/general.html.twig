@@ -1,4 +1,10 @@
 {% block general %}
-        <p>General Settings</p>
-        <p>Here you can update your general account information.</p>
+        <h3>General Settings</h3>
+        <hr>
+        <form method="post" id="general-settings-form">
+            {{ form_start(form) }}
+                {{ form_row(form.displayName, { 'value': user.displayName }) }}
+                <button type="submit" class="btn">Save</button>
+            {{ form_end(form) }}
+        </form>
 {% endblock %}
