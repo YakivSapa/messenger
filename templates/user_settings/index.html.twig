@@ -25,6 +25,11 @@
                     {{ message }}
                 </div>
             {% endfor %}
+            {% for message in app.flashes('reset_password_error') %}
+                <div class="flash-warning">
+                    {{ message }}
+                </div>
+            {% endfor %}
         </div>
     {# </div> #}
 {% endblock %}

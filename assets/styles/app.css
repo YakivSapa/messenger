@@ -132,6 +132,9 @@
     font-size: 0.9rem;
     color: #888;
 }
+#password-reset-form div{
+    display: none;
+}
 #settings-flash-messages{
     grid-column: 3 / -1;
 }
