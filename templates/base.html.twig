@@ -26,10 +26,18 @@
         <li><a href="{{ path('app_home') }}" class="{{ current_route == 'app_home' ? 'active' : '' }}">
             Home
         </a></li>
-        <li><a href="{{ path('app_users') }}" class="{{ current_route == 'app_users' ? 'active' : '' }}">
-            Users
-        </a></li>
         {% if app.user %}
+        {# TODO #}
+        {# <li>
+            <a href="{{ path('app_social') }}" class="{{ current_route == 'app_social' ? 'active' : '' }}">
+            Friends&Chat
+            </a>
+        </li> #}
+        <li>
+            <a href="{{ path('app_community') }}" class="{{  current_route == 'app_community' ? 'active' : ''  }}">
+            Community
+            </a>
+        </li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle">My Profile ▾</a>
             <ul class="dropdown-menu">
