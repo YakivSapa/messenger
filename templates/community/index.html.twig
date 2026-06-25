@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Community{% endblock %}
+
+{% block body %}
+    <h1>Community Activity</h1>
+    <div id="users_counters_container">
+        <div id="total_users_count">
+            <p>Total user count: </p>
+            <span>{{ verifiedUsersStats }}</span>
+        </div>
+        {# TODO #}
+        {# <div id="new_users_count">
+            <p>New Users: </p>
+            <span>2</span>
+        </div> #}
+    </div>
+    <div id="search_users_button">
+        <a href="{{ path('app_community_search_user') }}" class="btn btn-primary">Find People</a>
+    </div>
+{% endblock %}
