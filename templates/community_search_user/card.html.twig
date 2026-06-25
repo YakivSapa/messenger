@@ -1,0 +1,16 @@
+<div class="user-card">
+    <div class="user-card-header">
+        <h3 class="user-card-displayName">{{ user.displayName}}</h3>
+        <p class="user-card-username">{{ user.username}}</p>
+    </div>
+    <div class="user-card-footer">
+        <a href="{{ path('app_profile', { uuid: user.uuid }) }}" class="btn btn-primary">
+        View Profile
+        </a>
+        {% if currentUser and currentUser.id == user.id %}
+            <p id="user-card-own-profile">That's you!</p>
+        {% else %}
+            <a href="#">Send invite</a>
+        {% endif %}
+    </div>
+</div>

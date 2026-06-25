@@ -80,4 +80,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getOneOrNullResult();
     }
+    public function searchUsers(string $query, int $limit = 50): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.id', 'u.uuid', 'u.displayName', 'u.username')
+            ->where('u.displayName LIKE :query')
+            ->orWhere('u.username LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->orderBy('u.displayName', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+    public function countVerifiedUsers(): int
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where('u.isVerified = :verified')
+            ->setParameter('verified', true)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
