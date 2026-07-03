@@ -6,20 +6,20 @@
     <h3 id="page-title">Search new contacts<h3>
     <div id="community_search_field">
         <form method="get" action="{{ path('app_community_search_user')}}">
-            <input type="text" name="q" value="{{ searchQuery }}" placeholder="Search users..." minlength="2">
+            <input type="text" name="q" value="{{ q }}" placeholder="Search users..." minlength="2">
             <button type="submit">Search</button>
         </form>
     </div>
     <div id="community_search_results">
-        {% if searchQuery %}
+        {% if q %}
             {% if users|length > 0 %}
                 <ul>
                     {% for user in users %}
-                        {{ include('community_search_user/card.html.twig', { user: user }) }}
+                        {% include 'community_search_user/card.html.twig' with { 'user': user, 'q': q, 'currentUser': currentUser, 'pendingRequests': pendingRequests } %}
                     {% endfor %}
                 </ul>
             {% else %}
-                <p>No users found for "{{ searchQuery }}"</p>
+                <p>No users found for "{{ q }}"</p>
             {% endif %}
         {% endif %}
     </div>
