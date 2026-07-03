@@ -62,13 +62,25 @@
     </ul>
     </header>
         {% block error %}{% endblock %}
+            <div class="container">
+                {% for type, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ type }} alert-dismissable fade show" role="alert">
+                            {{ message }}
+                            {# <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            </button> #}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
         {% block body %}
-        {% for flash in app.flashes('verify_email_success') %}
-            <div class="alert alert-success">{{ flash }}</div>
-        {% endfor %}
-        {% for flash in app.flashes('verify_email_error') %}
-            <div class="alert alert-danger">{{ flash }}</div>
-        {% endfor %}
+            {# {% for flash in app.flashes('verify_email_success') %}
+                <div class="alert alert-success">{{ flash }}</div>
+            {% endfor %}
+            {% for flash in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger">{{ flash }}</div>
+            {% endfor %} #}
+
         {% endblock %}
     </body>
 </html>
