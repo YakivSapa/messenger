@@ -7,10 +7,64 @@
         <a href="{{ path('app_profile', { uuid: user.uuid }) }}" class="btn btn-primary">
         View Profile
         </a>
-        {% if currentUser and currentUser.id == user.id %}
+        {% if currentUser.id == user.id %}
             <p id="user-card-own-profile">That's you!</p>
+        {% endif %}
+        {% if pendingRequests[user.id] is defined %}
+            {% set friendRequest = pendingRequests[user.id] %}
+
+            {% if friendRequest.status == 'pending' %}
+                {% if friendRequest.sender.id == currentUser.id %}
+                    {# Current user sent the request #}
+                    <span>Request already sent!</span>
+                    <form method="POST" action="{{ path('app_friend_request_cancel', {id: friendRequest.id}) }}">
+                        <button type="submit" class="btn">Cancel the invite</button>
+                    </form>
+                {% else %}
+                    {# Current user received the request #}
+                    <div class="btn-group">
+                        <form method="POST" action="{{ path('app_friend_request_accept', { id:friendRequest.id }) }}">
+                            <input type="hidden" name="q" value="{{ q }}">
+                            <button type="submit" class="btn btn-success">
+                                Accept
+                            </button>
+                        </form>
+                        <form method="POST" action="{{ path('app_friend_request_decline', { id:friendRequest.id }) }}">
+                            <input type="hidden" name="q" value="{{ q }}">
+                            <button type="submit" class="btn btn-danger">
+                                Decline
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            {% elseif friendRequest.status == 'declined'%}
+                {% if friendRequest.sender.id == currentUser.id %}
+                    <form method="POST" action="{{ path('app_friend_request_resend', { id:user.id }) }}">
+                    <input type="hidden" name="q" value="{{ q }}">
+                        <button type="submit" class="btn btn-success">
+                            Resend
+                        </button>
+                    </form>
+                {% else %}
+                    <form method="POST" action="{{ path('app_friend_request_send', { id:user.id }) }}">
+                    <input type="hidden" name="q" value="{{ q }}">
+                    <button type="submit" class="btn btn-primary">
+                        Send invite
+                    </button>
+                    </form>
+                {% endif %}
+            {% elseif friendRequest.status == 'accepted'%}
+                <span>You are friends!</span>            
+            {% endif %}
+            {# {% endif %} #}
         {% else %}
-            <a href="#">Send invite</a>
+                {# No pending requests #}
+                <form method="POST" action="{{ path('app_friend_request_send', { id:user.id }) }}">
+                    <input type="hidden" name="q" value="{{ q }}">
+                    <button type="submit" class="btn btn-primary">
+                        Send invite
+                    </button>
+                </form>
         {% endif %}
     </div>
 </div>
