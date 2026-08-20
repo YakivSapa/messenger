@@ -53,7 +53,7 @@ when@test:
             connections:
                 default:
                     driver: 'pdo_sqlite'
-                    url: '%env(resolve:DATABASE_SQLITE_URL)%'
+                    url: 'sqlite:///:memory:'
 
 when@prod:
     doctrine:
