@@ -44,6 +44,10 @@ class RegistrationController extends AbstractController
                 $form->get('username')->addError(
                     new FormError('Username is already taken.')
                 );
+
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form,
+                ]);
             }
             $user->setUsername($username);
             $user->setDisplayName($form->get('displayName')->getData());
