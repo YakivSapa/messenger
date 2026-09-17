@@ -1,0 +1,59 @@
+#users-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 5vw;
+}
+.user-card {
+    border: 1px solid black;
+    max-width: 200px;
+    text-align: center;
+    text-decoration: none;
+}
+.user-card:hover{
+    color: #ffcd59;
+    background-color: hsl(0, 0%, 15%);
+}
+#listActiveProfile{
+    margin: 0;
+    font-size: 12px;
+    text-align: right;
+}
+#user-display-name{
+    margin-bottom: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+#user-username{
+    margin: 0;
+    font-size: 1rem;
+    color: #888;
+}
+.user-card{
+    max-width: stretch;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    border-radius: 8px;
+    padding: 15px;
+}
+.user-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.user-card-displayName{
+    font: bold;
+    color: #FFB300;
+}
+.user-card-username{
+    font-size: 14px;
+    color: #595959;
+}
+.user-card-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+#user-card-own-profile{
+    font-size: 24px;
+}

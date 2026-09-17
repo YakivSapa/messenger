@@ -1,0 +1,39 @@
+#users_counters_container{
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+}
+#total_users_count, #new_users_count{
+    display: flex;
+}
+#users_counters_container p{
+    margin: 0;
+    padding-right: 5px;
+}
+#users_counters_container span{
+    font-weight: bold;
+}
+#new_users_count{
+    text-align: end;
+    justify-content: end;
+}
+#search_users_button{
+    margin: 20px 0;
+    text-align: center;
+}
+#search_users_button a{
+    text-decoration: none;
+    border: 1px solid black;
+}
+#community_search{
+    padding: 5px;
+    border-radius: 10px;
+    width: 100%;
+    resize: none;
+}
+#community_search_field{
+    display: flex;
+    justify-content: center;
+}
+#community_search_results ul{
+    padding: 0;
+}
