@@ -36,4 +36,8 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     {
         return $this->user;
     }
+    public function getSelector(): string
+    {
+        return $this->selector;
+    }
 }
